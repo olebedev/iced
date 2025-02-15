@@ -148,7 +148,7 @@ cosmic-text = "0.12"
 dark-light = "1.0"
 futures = "0.3"
 glam = "0.25"
-glyphon = { package = "iced_glyphon", version = "0.6" }                                                     # Temporary `glyphon` fork
+glyphon = { package = "iced_glyphon", version = "0.6" }                     # Temporary `glyphon` fork
 guillotiere = "0.6"
 half = "2.2"
 image = { version = "0.24", default-features = false }
@@ -184,7 +184,7 @@ web-time = "1.1"
 wgpu = "0.19"
 winapi = "0.3"
 window_clipboard = "0.4.1"
-winit = { git = "https://github.com/olebedev/winit.git", rev = "e2c8d447e9df9055e1998e07a78df11ff9f60ab0" } # should be 0.31 after it's released
+winit = { git = "https://github.com/olebedev/winit.git", rev = "d112c92b" } # should be 0.31 after it's released
 
 [workspace.lints.rust]
 rust_2018_idioms = { level = "forbid", priority = -1 }
