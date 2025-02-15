@@ -22,7 +22,13 @@ all-features = true
 maintenance = { status = "actively-developed" }
 
 [features]
-default = ["wgpu", "tiny-skia", "web-colors", "auto-detect-theme", "thread-pool"]
+default = [
+    "wgpu",
+    "tiny-skia",
+    "web-colors",
+    "auto-detect-theme",
+    "thread-pool",
+]
 # Enables the `wgpu` GPU-accelerated renderer backend
 wgpu = ["iced_renderer/wgpu", "iced_widget/wgpu"]
 # Enables the `tiny-skia` software renderer backend
@@ -206,7 +212,7 @@ web-sys = "0.3.69"
 web-time = "1.1"
 wgpu = "24.0"
 window_clipboard = "0.4.1"
-winit = { git = "https://github.com/iced-rs/winit.git", rev = "11414b6aa45699f038114e61b4ddf5102b2d3b4b" }
+winit = { path = "../winit" }
 
 [workspace.lints.rust]
 rust_2018_idioms = { level = "deny", priority = -1 }
