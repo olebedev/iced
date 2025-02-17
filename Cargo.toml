@@ -212,7 +212,7 @@ web-sys = "0.3.69"
 web-time = "1.1"
 wgpu = "24.0"
 window_clipboard = "0.4.1"
-winit = { path = "../winit" }
+winit = { git = "https://github.com/olebedev/winit.git", rev = "ac577c30796d56e9bf47512ab6818f8518871b40"}
 
 [workspace.lints.rust]
 rust_2018_idioms = { level = "deny", priority = -1 }

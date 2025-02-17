@@ -1,8 +1,8 @@
 //! Listen to runtime events.
 use crate::MaybeSend;
-use crate::core::event::{self, Event};
+use crate::core::event::{self, ApplicationEvent, Event};
 use crate::core::window;
-use crate::subscription::{self, Subscription};
+use crate::subscription::{self, MacOS, PlatformSpecific, Subscription};
 
 /// Returns a [`Subscription`] to all the ignored runtime events.
 ///
@@ -87,5 +87,27 @@ pub fn listen_url() -> Subscription<String> {
             ),
         ) => Some(url),
         _ => None,
+    })
+}
+
+/// Creates a [`Subscription`] that produces a message for application's event. such as
+///
+pub fn listen_application() -> Subscription<ApplicationEvent> {
+    #[derive(Hash)]
+
+    struct AppEvents;
+
+    subscription::filter_map(AppEvents, move |event| match event {
+        subscription::Event::Interaction { .. } => None,
+        subscription::Event::PlatformSpecific(PlatformSpecific::MacOS(
+            MacOS::ReceivedUrl(_),
+        )) => None,
+        subscription::Event::PlatformSpecific(PlatformSpecific::MacOS(
+            MacOS::Application {
+                has_visible_windows,
+            },
+        )) => Some(ApplicationEvent::ReOpen {
+            has_visible_windows,
+        }),
     })
 }

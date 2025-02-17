@@ -27,6 +27,19 @@ pub enum Event {
 
     /// An input method event
     InputMethod(input_method::Event),
+
+    /// An application event
+    Application(ApplicationEvent),
+}
+
+/// An event specific to an application.
+#[derive(Debug, Clone, PartialEq)]
+pub enum ApplicationEvent {
+    /// Event triggered when re-opening the application.
+    ReOpen {
+        /// Whether there are any visible windows when the event is triggered.
+        has_visible_windows: bool,
+    },
 }
 
 /// The status of an [`Event`] after being processed.

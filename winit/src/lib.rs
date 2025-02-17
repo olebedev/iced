@@ -258,6 +258,25 @@ where
                 Event::EventLoopAwakened(winit::event::Event::AboutToWait),
             );
         }
+
+        fn application_reopen(
+            &mut self,
+            event_loop: &winit::event_loop::ActiveEventLoop,
+            has_visible_windows: bool,
+        ) {
+            self.process_event(
+                event_loop,
+                Event::EventLoopAwakened(
+                    winit::event::Event::PlatformSpecific(
+                        winit::event::PlatformSpecific::MacOS(
+                            winit::event::MacOS::ApplicationReopen(
+                                has_visible_windows,
+                            ),
+                        ),
+                    ),
+                ),
+            );
+        }
     }
 
     impl<Message, F> Runner<Message, F>
@@ -664,6 +683,21 @@ async fn run_instance<P>(
                             );
                         }
                     }
+                    event::Event::PlatformSpecific(
+                        event::PlatformSpecific::MacOS(
+                            event::MacOS::ApplicationReopen(
+                                has_visible_windows,
+                            ),
+                        ),
+                    ) => runtime.broadcast(
+                        subscription::Event::PlatformSpecific(
+                            subscription::PlatformSpecific::MacOS(
+                                subscription::MacOS::Application {
+                                    has_visible_windows,
+                                },
+                            ),
+                        ),
+                    ),
                     event::Event::PlatformSpecific(
                         event::PlatformSpecific::MacOS(
                             event::MacOS::ReceivedUrl(url),

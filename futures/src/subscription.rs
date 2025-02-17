@@ -47,6 +47,18 @@ pub enum MacOS {
     ///
     /// [bundled]: https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFBundles/BundleTypes/BundleTypes.html#//apple_ref/doc/uid/10000123i-CH101-SW19
     ReceivedUrl(String),
+    /// Emitted when the user attempts to re-launch the application.
+    ///
+    /// ## Platform-specific
+    ///
+    /// - **macOS**: This event is emitted when the user clicks the dock icon of a running application
+    ///   or attempts to re-launch it. The boolean parameter indicates whether the application
+    ///   currently has any visible windows.
+    /// - **Other platforms**: Unsupported.
+    Application {
+        /// Whether the application currently has any visible windows.
+        has_visible_windows: bool,
+    },
 }
 
 /// A stream of runtime events.
@@ -139,7 +151,7 @@ impl<T> Subscription<T> {
     ///
     /// ```
     /// # mod iced {
-    /// #     pub use iced_futures::Subscription;   
+    /// #     pub use iced_futures::Subscription;
     /// #     pub use iced_futures::futures;
     /// #     pub use iced_futures::stream;
     /// # }
