@@ -27,6 +27,7 @@ where
             ..
         } => f(key, modifiers),
         subscription::Event::Interaction { .. } => None,
+        subscription::Event::Application { .. } => None,
     })
 }
 
@@ -52,5 +53,6 @@ where
             ..
         } => f(key, modifiers),
         subscription::Event::Interaction { .. } => None,
+        subscription::Event::Application { .. } => None,
     })
 }

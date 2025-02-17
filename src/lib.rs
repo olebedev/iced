@@ -435,14 +435,14 @@
 //!                     }
 //!                  }
 //!             } else {
-//!                 Task::none()    
+//!                 Task::none()
 //!             }
 //!         }
 //!         Message::Conversation(message) => {
 //!             if let Screen::Conversation(conversation) = &mut state.screen {
 //!                 conversation.update(message).map(Message::Conversation)
 //!             } else {
-//!                 Task::none()    
+//!                 Task::none()
 //!             }
 //!         }
 //!     }
@@ -551,7 +551,7 @@ pub mod font {
 
 pub mod event {
     //! Handle events of a user interface.
-    pub use crate::core::event::{Event, Status};
+    pub use crate::core::event::{ApplicationEvent, Event, Status};
     pub use iced_futures::event::{listen, listen_raw, listen_with};
 }
 

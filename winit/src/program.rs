@@ -445,6 +445,19 @@ where
                 Event::EventLoopAwakened(winit::event::Event::AboutToWait),
             );
         }
+
+        fn application_reopen(
+            &mut self,
+            event_loop: &winit::event_loop::ActiveEventLoop,
+            has_visible_windows: bool,
+        ) {
+            self.process_event(
+                event_loop,
+                Event::EventLoopAwakened(
+                    winit::event::Event::ApplicationReopen(has_visible_windows),
+                ),
+            );
+        }
     }
 
     impl<Message, F, C> Runner<Message, F, C>
@@ -741,6 +754,11 @@ async fn run_instance<P, C>(
             }
             Event::EventLoopAwakened(event) => {
                 match event {
+                    event::Event::ApplicationReopen(has_visible_windows) => {
+                        runtime.broadcast(subscription::Event::Application {
+                            has_visible_windows,
+                        })
+                    }
                     event::Event::NewEvents(
                         event::StartCause::Init
                         | event::StartCause::ResumeTimeReached { .. },

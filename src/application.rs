@@ -35,6 +35,7 @@ use crate::window;
 use crate::{
     Element, Executor, Font, Result, Settings, Size, Subscription, Task,
 };
+pub use iced_futures::event::listen_application as listen;
 
 use std::borrow::Cow;
 

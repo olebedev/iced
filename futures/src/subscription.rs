@@ -14,6 +14,18 @@ use std::hash::Hash;
 /// A subscription event.
 #[derive(Debug, Clone, PartialEq)]
 pub enum Event {
+    /// Emitted when the user attempts to re-launch the application.
+    ///
+    /// ## Platform-specific
+    ///
+    /// - **macOS**: This event is emitted when the user clicks the dock icon of a running application
+    ///   or attempts to re-launch it. The boolean parameter indicates whether the application
+    ///   currently has any visible windows.
+    /// - **Other platforms**: Unsupported.
+    Application {
+        /// Whether the application currently has any visible windows.
+        has_visible_windows: bool,
+    },
     /// A user interacted with a user interface in a window.
     Interaction {
         /// The window holding the interface of the interaction.
@@ -118,7 +130,7 @@ impl<T> Subscription<T> {
     ///
     /// ```
     /// # mod iced {
-    /// #     pub use iced_futures::Subscription;   
+    /// #     pub use iced_futures::Subscription;
     /// #     pub use iced_futures::futures;
     /// #     pub use iced_futures::stream;
     /// # }

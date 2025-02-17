@@ -1,5 +1,5 @@
 //! Listen to runtime events.
-use crate::core::event::{self, Event};
+use crate::core::event::{self, ApplicationEvent, Event};
 use crate::core::window;
 use crate::subscription::{self, Subscription};
 use crate::MaybeSend;
@@ -42,6 +42,7 @@ where
             event,
             status,
         } => f(event, status, window),
+        subscription::Event::Application { .. } => None,
     })
 }
 
@@ -65,5 +66,24 @@ where
             event,
             status,
         } => f(event, status, window),
+        subscription::Event::Application {
+            has_visible_windows: _,
+        } => None,
+    })
+}
+
+/// Creates a [`Subscription`] that produces a message for application's event. such as
+///
+pub fn listen_application() -> Subscription<ApplicationEvent> {
+    #[derive(Hash)]
+    struct AppEvents;
+
+    subscription::filter_map(AppEvents, move |event| match event {
+        subscription::Event::Interaction { .. } => None,
+        subscription::Event::Application {
+            has_visible_windows,
+        } => Some(ApplicationEvent::ReOpen {
+            has_visible_windows,
+        }),
     })
 }
