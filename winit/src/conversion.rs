@@ -141,10 +141,13 @@ pub fn window_event(
         WindowEvent::Resized(new_size) => {
             let logical_size = new_size.to_logical(scale_factor);
 
-            Some(Event::Window(window::Event::Resized(Size {
-                width: logical_size.width,
-                height: logical_size.height,
-            })))
+            Some(Event::Window(window::Event::Resized(
+                Size {
+                    width: logical_size.width,
+                    height: logical_size.height,
+                },
+                scale_factor,
+            )))
         }
         WindowEvent::CloseRequested => {
             Some(Event::Window(window::Event::CloseRequested))

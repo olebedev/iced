@@ -212,7 +212,7 @@ pub fn close_events() -> Subscription<Id> {
 /// Subscribes to all [`Event::Resized`] occurrences in the running application.
 pub fn resize_events() -> Subscription<(Id, Size)> {
     event::listen_with(|event, _status, id| {
-        if let crate::core::Event::Window(Event::Resized(size)) = event {
+        if let crate::core::Event::Window(Event::Resized(size, _)) = event {
             Some((id, size))
         } else {
             None

@@ -26,7 +26,7 @@ pub enum Event {
     Moved(Point),
 
     /// A window was resized.
-    Resized(Size),
+    Resized(Size, f64),
 
     /// A window redraw was requested.
     ///
