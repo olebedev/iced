@@ -105,7 +105,8 @@ pub fn window_attributes(
             )
             .with_fullsize_content_view(
                 settings.platform_specific.fullsize_content_view,
-            );
+            )
+            .with_unified_titlebar(settings.platform_specific.unified_titlebar);
     }
 
     #[cfg(target_os = "linux")]
